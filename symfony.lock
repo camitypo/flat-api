@@ -111,9 +111,6 @@
     "gitonomy/gitlib": {
         "version": "v1.0.4"
     },
-    "hirak/prestissimo": {
-        "version": "0.3.8"
-    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
