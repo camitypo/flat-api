@@ -1,8 +1,31 @@
 {
+    "name": "camitypo/flat-api",
+    "description": "Backend REST API for the flat application.",
+    "authors": [
+        {
+            "name":     "Carlos Miguelez",
+            "email":    "camitypo@gmail.com",
+            "homepage": "https://www.camitypo.de",
+            "role":     "Project Owner"
+        }
+    ],
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
+    "version": "0.0.1",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "vendor-dir": "vendor",
+        "platform": {
+            "php": "7.2"
+        },
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.2.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "symfony/console": "4.2.*",
@@ -10,12 +33,6 @@
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "4.2.*",
         "symfony/yaml": "4.2.*"
-    },
-    "config": {
-        "preferred-install": {
-            "*": "dist"
-        },
-        "sort-packages": true
     },
     "autoload": {
         "psr-4": {
