@@ -1,0 +1,35 @@
+# Route to create new flat resource
+create:
+    path: /flats
+    controller: App\Controller\RestController::post
+    methods:  [POST]
+
+# Route to get a list of all flat resources
+list:
+    path: /flats
+    controller: App\Controller\RestController::getList
+    methods:  [GET]
+
+# Route to get the details of a single flat resource
+details:
+    path: /flats/{id}
+    controller: App\Controller\RestController::get
+    methods:  [GET]
+    requirements:
+        id: '\d+'
+
+# Route to update a single flat resource
+update:
+    path: /flats/{id}
+    controller: App\Controller\RestController::put
+    methods:  [PUT]
+    requirements:
+        id: '\d+'
+
+# Route to delete a single flat resource
+delete:
+    path: /flats/{id}
+    controller: App\Controller\RestController::delete
+    methods:  [DELETE]
+    requirements:
+        id: '\d+'

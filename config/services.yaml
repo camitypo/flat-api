@@ -5,6 +5,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    version: 'v1'
+    token:  'kMUoDXU1gNIBrnGElNhA1buL0KilN37sxVQsuiaE-Hw'
+    app.base.url: 'http://localhost:4302'
 
 services:
     # default configuration for services in *this* file
@@ -24,5 +27,5 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\Service\MailService:
+        arguments: ['@swiftmailer.mailer.default', '@twig', '%app.base.url%', '%token%']

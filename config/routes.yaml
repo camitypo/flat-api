@@ -1,3 +1,10 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+api:
+  # File containing api routes
+  resource: routes/api.yaml
+
+  # this prefix is added to all the action URLs
+  prefix: /api/%version%/
+
+  # Set JSON as default format
+  defaults:
+    _format: json
