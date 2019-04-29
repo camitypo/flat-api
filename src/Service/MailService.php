@@ -13,6 +13,9 @@ use App\Entity\Flat;
 use Swift_Mailer;
 use Swift_Message;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class MailService
 {
@@ -43,9 +46,9 @@ class MailService
     /**
      * Renders email template and send mail to contact.
      *
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      *
      * @return int
      */

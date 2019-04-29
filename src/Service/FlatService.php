@@ -23,6 +23,9 @@ use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class FlatService
 {
@@ -63,82 +66,61 @@ class FlatService
     /**
      * Creates new flat and persists it.
      *
-     * @param $data
      *
      * @throws RestException
-     * @throws ExceptionInterface
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function createFlat(string $data)
     {
-        try {
-            $flat = new Flat();
-            $form = $this->formFactory->create(FlatType::class, $flat);
+        $flat = new Flat();
+        $form = $this->formFactory->create(FlatType::class, $flat);
 
-            if (!$this->processForm($form, $data)) {
-                throw new RestException(null, 400);
-            }
+        if (!$this->processForm($form, $data)) {
+            throw new RestException(null, 400);
+        }
 
-            // Persist data
-            $this->entityManager->persist($form->getData());
+        // Persist data
+        $this->entityManager->persist($form->getData());
 
-            // Flush entity into database
-            $this->entityManager->flush();
+        // Flush entity into database
+        $this->entityManager->flush();
 
-            $sendStatus = $this->mailService->sendContactEmail($flat);
+        $sendStatus = $this->mailService->sendContactEmail($flat);
 
-            if (0 === $sendStatus) {
-                $this->logger->error('Email for flat with id '.$flat->getId().'was not send.');
-            }
-        } catch (Exception $e) {
-            $this->logger->error(
-                'Error occurred during creation of new flat',
-                [
-                    'error' => [
-                        'code' => $e->getCode(),
-                        'message' => $e->getMessage(),
-                    ],
-                ]
-            );
-            throw new RestException($e->getMessage(), 500);
+        if (0 === $sendStatus) {
+            $this->logger->error('Email for flat with id '.$flat->getId().'was not send.');
         }
     }
 
     /**
+     * Updates a single resource or throws 404 error if not found.
+     *
      * @throws RestException
-     * @throws ExceptionInterface
      */
     public function updateFlat(int $id, string $data)
     {
-        try {
-            $flat = $this->flatRepository->find($id);
+        $flat = $this->flatRepository->find($id);
 
-            if (!$flat) {
-                throw new RestException(null, 404);
-            }
-
-            $form = $this->formFactory->create(FlatType::class, $flat);
-
-            if (!$this->processForm($form, $data)) {
-                throw new RestException(null, 400);
-            }
-
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-        } catch (Exception $e) {
-            $this->logger->error(
-                'Error occurred during flat update',
-                [
-                    'error' => [
-                        'code' => $e->getCode(),
-                        'message' => $e->getMessage(),
-                    ],
-                ]
-            );
-            throw new RestException(null, 500);
+        if (!$flat) {
+            throw new RestException(null, 404);
         }
+
+        $form = $this->formFactory->create(FlatType::class, $flat);
+
+        if (!$this->processForm($form, $data)) {
+            throw new RestException(null, 400);
+        }
+
+        $this->entityManager->persist($form->getData());
+        $this->entityManager->flush();
     }
 
     /**
+     * Provides a list containing flat resources found or throws an error 404
+     * if no flats are found.
+     *
      * @throws RestException
      * @throws ExceptionInterface
      *
@@ -156,6 +138,8 @@ class FlatService
     }
 
     /**
+     * Gets details of a single flat resource by given uid or throws error 404.
+     *
      * @throws RestException
      * @throws ExceptionInterface
      *
@@ -175,10 +159,7 @@ class FlatService
     /**
      * Deletes single flat resource by given id.
      *
-     *
      * @throws RestException
-     *
-     * @return bool
      */
     public function deleteFlat(int $id)
     {
@@ -197,7 +178,6 @@ class FlatService
      *
      * @param string $data JSON string containing body data
      *
-     * @throws ExceptionInterface
      * @throws RestException
      *
      * @return bool
