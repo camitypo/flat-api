@@ -47,7 +47,7 @@ class RestController extends AbstractController
      */
     public function post(Request $request): RestResponse
     {
-        if (0 === \mb_strlen($request->getContent())) {
+        if (0 === mb_strlen($request->getContent())) {
             return new RestResponse(null, 400);
         }
 
@@ -71,7 +71,7 @@ class RestController extends AbstractController
      */
     public function get(string $id): RestResponse
     {
-        if (0 === \mb_strlen($id)) {
+        if (0 === mb_strlen($id)) {
             return new RestResponse(null, 400);
         }
 
@@ -113,7 +113,7 @@ class RestController extends AbstractController
      */
     public function put(Request $request, string $id): RestResponse
     {
-        if (0 === \mb_strlen($request->getContent()) || 0 === \mb_strlen($id)) {
+        if (0 === mb_strlen($request->getContent()) || 0 === mb_strlen($id)) {
             return new RestResponse(null, 400);
         }
 
@@ -133,7 +133,7 @@ class RestController extends AbstractController
      */
     public function delete(string $id): RestResponse
     {
-        if (0 === \mb_strlen($id)) {
+        if (0 === mb_strlen($id)) {
             return new RestResponse(null, 400);
         }
 
