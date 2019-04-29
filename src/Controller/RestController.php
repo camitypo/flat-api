@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Fabien Potencier <fabien@symfony.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use App\Exception\RestException;
@@ -25,8 +32,6 @@ class RestController extends AbstractController
     /**
      * RestController constructor.
      * Provides Flat service as dependency injection.
-     *
-     * @param FlatService $flatService
      */
     public function __construct(FlatService $flatService)
     {
@@ -36,15 +41,13 @@ class RestController extends AbstractController
     /**
      * Creates new flat resource.
      *
-     * @param Request $request
      *
-     * @return RestResponse
      *
      * @throws ExceptionInterface
      */
     public function post(Request $request): RestResponse
     {
-        if (0 === strlen($request->getContent())) {
+        if (0 === \mb_strlen($request->getContent())) {
             return new RestResponse(null, 400);
         }
 
@@ -62,15 +65,13 @@ class RestController extends AbstractController
     /**
      * Provides the details of a single flat resource by given id.
      *
-     * @param string $id
      *
-     * @return RestResponse
      *
      * @throws ExceptionInterface
      */
     public function get(string $id): RestResponse
     {
-        if (0 === strlen($id)) {
+        if (0 === \mb_strlen($id)) {
             return new RestResponse(null, 400);
         }
 
@@ -88,7 +89,6 @@ class RestController extends AbstractController
     /**
      * Provides a list containing all available flat resources.
      *
-     * @return RestResponse
      *
      * @throws ExceptionInterface
      */
@@ -108,15 +108,12 @@ class RestController extends AbstractController
     /**
      * Updates a flat resource by given id and data.
      *
-     * @param Request $request
-     * @param string  $id
      *
-     * @return RestResponse
      * @throws ExceptionInterface
      */
     public function put(Request $request, string $id): RestResponse
     {
-        if (0 === strlen($request->getContent()) || 0 === strlen($id)) {
+        if (0 === \mb_strlen($request->getContent()) || 0 === \mb_strlen($id)) {
             return new RestResponse(null, 400);
         }
 
@@ -133,14 +130,10 @@ class RestController extends AbstractController
 
     /**
      * Deletes a flat resource by given id.
-     *
-     * @param string $id
-     *
-     * @return RestResponse
      */
     public function delete(string $id): RestResponse
     {
-        if (0 === strlen($id)) {
+        if (0 === \mb_strlen($id)) {
             return new RestResponse(null, 400);
         }
 

@@ -5,8 +5,9 @@ This file is part of the Symfony package.
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 COMMENT;
+
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__)
+    ->in('src')
     ->exclude('config')
     ->exclude('var')
     ->exclude('public/bundles')
@@ -15,6 +16,7 @@ $finder = PhpCsFixer\Finder::create()
     ->notPath('bin/console')
     ->notPath('public/index.php')
 ;
+
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([

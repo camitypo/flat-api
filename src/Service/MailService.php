@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Fabien Potencier <fabien@symfony.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Service;
 
 use App\Entity\Flat;
@@ -24,10 +31,6 @@ class MailService
 
     /**
      * MailService constructor.
-     * @param Swift_Mailer $mailer
-     * @param Environment  $templating
-     * @param string       $appBaseUrl
-     * @param string       $token
      */
     public function __construct(Swift_Mailer $mailer, Environment $templating, string $appBaseUrl, string $token)
     {
@@ -39,11 +42,12 @@ class MailService
 
     /**
      * Renders email template and send mail to contact.
-     * @param Flat $flat
-     * @return int
+     *
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
+     *
+     * @return int
      */
     public function sendContactEmail(Flat $flat)
     {

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Fabien Potencier <fabien@symfony.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Service;
 
 use App\Entity\Flat;
@@ -38,12 +45,6 @@ class FlatService
 
     /**
      * FlatService constructor.
-     *
-     * @param FormFactoryInterface   $formFactory
-     * @param EntityManagerInterface $entityManager
-     * @param FlatRepository         $flatRepository
-     * @param MailService            $mailService
-     * @param LoggerInterface        $logger
      */
     public function __construct(
         FormFactoryInterface $formFactory,
@@ -103,9 +104,6 @@ class FlatService
     }
 
     /**
-     * @param int    $id
-     * @param string $data
-     *
      * @throws RestException
      * @throws ExceptionInterface
      */
@@ -141,10 +139,10 @@ class FlatService
     }
 
     /**
-     * @return string
-     *
      * @throws RestException
      * @throws ExceptionInterface
+     *
+     * @return string
      */
     public function getFlats()
     {
@@ -158,12 +156,10 @@ class FlatService
     }
 
     /**
-     * @param int $id
-     *
-     * @return string
-     *
      * @throws RestException
      * @throws ExceptionInterface
+     *
+     * @return string
      */
     public function getFlat(int $id)
     {
@@ -179,11 +175,10 @@ class FlatService
     /**
      * Deletes single flat resource by given id.
      *
-     * @param int $id
-     *
-     * @return bool
      *
      * @throws RestException
+     *
+     * @return bool
      */
     public function deleteFlat(int $id)
     {
@@ -200,13 +195,12 @@ class FlatService
     /**
      * Processes the form with given data.
      *
-     * @param FormInterface $form
-     * @param string        $data JSON string containing body data
-     *
-     * @return bool
+     * @param string $data JSON string containing body data
      *
      * @throws ExceptionInterface
      * @throws RestException
+     *
+     * @return bool
      */
     private function processForm(FormInterface $form, string $data)
     {
@@ -231,9 +225,9 @@ class FlatService
      * @param $data
      * @param bool $asJson
      *
-     * @return string
-     *
      * @throws ExceptionInterface Occurs for all the other cases of errors
+     *
+     * @return string
      */
     private function normalizeData($data, $asJson = true)
     {
