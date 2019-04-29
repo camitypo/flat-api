@@ -1,12 +1,5 @@
 <?php
 
-/*
- * This file is part of the Symfony package.
- * (c) Fabien Potencier <fabien@symfony.com>
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace App\Service;
 
 use App\Entity\Flat;
@@ -17,6 +10,9 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
+/**
+ * Provides functionality to rendering email template and send mail to contact.
+ */
 class MailService
 {
     /** @var Swift_Mailer */
@@ -27,13 +23,17 @@ class MailService
 
     /** @var string $appBaseUrl */
     private $appBaseUrl;
-    /**
-     * @var Environment
-     */
+
+    /** @var Environment $templating */
     private $templating;
 
     /**
      * MailService constructor.
+     *
+     * @param Swift_Mailer $mailer
+     * @param Environment  $templating
+     * @param string       $appBaseUrl
+     * @param string       $token
      */
     public function __construct(Swift_Mailer $mailer, Environment $templating, string $appBaseUrl, string $token)
     {
@@ -45,6 +45,8 @@ class MailService
 
     /**
      * Renders email template and send mail to contact.
+     *
+     * @param Flat $flat
      *
      * @throws LoaderError
      * @throws RuntimeError

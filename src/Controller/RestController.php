@@ -25,6 +25,8 @@ class RestController extends AbstractController
     /**
      * RestController constructor.
      * Provides Flat service as dependency injection.
+     *
+     * @param FlatService $flatService
      */
     public function __construct(FlatService $flatService)
     {
@@ -34,9 +36,9 @@ class RestController extends AbstractController
     /**
      * Creates new flat resource.
      *
+     * @param Request $request
      *
-     *
-     * @throws ExceptionInterface
+     * @return RestResponse
      */
     public function post(Request $request): RestResponse
     {
@@ -58,9 +60,11 @@ class RestController extends AbstractController
     /**
      * Provides the details of a single flat resource by given id.
      *
-     *
+     * @param string $id
      *
      * @throws ExceptionInterface
+     *
+     * @return RestResponse
      */
     public function get(string $id): RestResponse
     {
@@ -82,8 +86,9 @@ class RestController extends AbstractController
     /**
      * Provides a list containing all available flat resources.
      *
-     *
      * @throws ExceptionInterface
+     *
+     * @return RestResponse
      */
     public function getList(): RestResponse
     {
@@ -101,8 +106,10 @@ class RestController extends AbstractController
     /**
      * Updates a flat resource by given id and data.
      *
+     * @param Request $request
+     * @param string  $id
      *
-     * @throws ExceptionInterface
+     * @return RestResponse
      */
     public function put(Request $request, string $id): RestResponse
     {
@@ -123,6 +130,10 @@ class RestController extends AbstractController
 
     /**
      * Deletes a flat resource by given id.
+     *
+     * @param string $id
+     *
+     * @return RestResponse
      */
     public function delete(string $id): RestResponse
     {

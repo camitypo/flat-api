@@ -1,12 +1,5 @@
 <?php
 
-/*
- * This file is part of the Symfony package.
- * (c) Fabien Potencier <fabien@symfony.com>
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace App\Service;
 
 use App\Entity\Flat;
@@ -48,6 +41,12 @@ class FlatService
 
     /**
      * FlatService constructor.
+     *
+     * @param FormFactoryInterface   $formFactory
+     * @param EntityManagerInterface $entityManager
+     * @param FlatRepository         $flatRepository
+     * @param MailService            $mailService
+     * @param LoggerInterface        $logger
      */
     public function __construct(
         FormFactoryInterface $formFactory,
@@ -67,8 +66,10 @@ class FlatService
      * Creates new flat and persists it.
      *
      *
-     * @throws RestException
+     * @param string $data
+     *
      * @throws LoaderError
+     * @throws RestException
      * @throws RuntimeError
      * @throws SyntaxError
      */
@@ -96,6 +97,9 @@ class FlatService
 
     /**
      * Updates a single resource or throws 404 error if not found.
+     *
+     * @param int    $id
+     * @param string $data
      *
      * @throws RestException
      */
@@ -140,8 +144,10 @@ class FlatService
     /**
      * Gets details of a single flat resource by given uid or throws error 404.
      *
-     * @throws RestException
+     * @param int $id
+     *
      * @throws ExceptionInterface
+     * @throws RestException
      *
      * @return string
      */
@@ -158,6 +164,8 @@ class FlatService
 
     /**
      * Deletes single flat resource by given id.
+     *
+     * @param int $id
      *
      * @throws RestException
      */
@@ -176,7 +184,8 @@ class FlatService
     /**
      * Processes the form with given data.
      *
-     * @param string $data JSON string containing body data
+     * @param FormInterface $form
+     * @param string        $data JSON string containing body data
      *
      * @throws RestException
      *
