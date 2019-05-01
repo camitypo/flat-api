@@ -155,9 +155,11 @@ class RestController extends AbstractController
     /**
      * Checks if request contains required payload and parameters depending on
      * given check case.
-     * @param null|string $payload
-     * @param null|int    $id
+     *
+     * @param string|null $payload
+     * @param int|null    $id
      * @param int         $checkCase
+     *
      * @return bool
      */
     private function isValidRequest($payload = null, $id = null, $checkCase = 0)
