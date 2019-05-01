@@ -40,9 +40,9 @@ class RestController extends AbstractController
      *
      * @return RestResponse
      */
-    public function post(Request $request): RestResponse
+    public function createFlat(Request $request): RestResponse
     {
-        if (0 === mb_strlen($request->getContent())) {
+        if (!$this->isValidRequest($request->getContent())) {
             return new RestResponse(null, 400);
         }
 
@@ -66,9 +66,9 @@ class RestController extends AbstractController
      *
      * @return RestResponse
      */
-    public function get(string $id): RestResponse
+    public function getFlat(string $id): RestResponse
     {
-        if (0 === mb_strlen($id)) {
+        if (!$this->isValidRequest(null, $id, 1)) {
             return new RestResponse(null, 400);
         }
 
@@ -111,9 +111,9 @@ class RestController extends AbstractController
      *
      * @return RestResponse
      */
-    public function put(Request $request, string $id): RestResponse
+    public function updateFlat(Request $request, string $id): RestResponse
     {
-        if (0 === mb_strlen($request->getContent()) || 0 === mb_strlen($id)) {
+        if (!$this->isValidRequest($request->getContent(), $id, 2)) {
             return new RestResponse(null, 400);
         }
 
@@ -135,9 +135,9 @@ class RestController extends AbstractController
      *
      * @return RestResponse
      */
-    public function delete(string $id): RestResponse
+    public function deleteFlat(string $id): RestResponse
     {
-        if (0 === mb_strlen($id)) {
+        if (!$this->isValidRequest(null, $id, 1)) {
             return new RestResponse(null, 400);
         }
 
@@ -149,6 +149,29 @@ class RestController extends AbstractController
             return new RestResponse(null, $e->getCode());
         } catch (Exception $e) {
             return new RestResponse(null, 500);
+        }
+    }
+
+    /**
+     * Checks if request contains required payload and parameters depending on
+     * given check case.
+     * @param null|string $payload
+     * @param null|int    $id
+     * @param int         $checkCase
+     * @return bool
+     */
+    private function isValidRequest($payload = null, $id = null, $checkCase = 0)
+    {
+        switch ($checkCase) {
+            case 1:
+                return 0 !== mb_strlen($id);
+                break;
+            case 2:
+                return (0 !== mb_strlen($payload)) && (0 !== mb_strlen($id));
+                break;
+            default:
+                return 0 !== mb_strlen($payload);
+                break;
         }
     }
 }
