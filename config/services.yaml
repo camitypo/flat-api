@@ -6,8 +6,8 @@
 parameters:
     locale: 'en'
     version: 'v1'
-    token:  'kMUoDXU1gNIBrnGElNhA1buL0KilN37sxVQsuiaE-Hw'
-    app.base.url: 'http://localhost:4302'
+    token:  '%env(API_TOKEN)%'
+    app.base.url: '%env(APP_BASE_URL)%'
 
 services:
     # default configuration for services in *this* file
